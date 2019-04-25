@@ -35,7 +35,7 @@ public class DirectionTest {
     @Test
     void testEast() {
         Direction north = Direction.valueOf("EAST");
-        assertThat(north.getDeltaX()).isEqualTo(1);
+        assertThat(north.getDeltaX()).isEqualTo(0);
     }
 
     /**
@@ -44,6 +44,6 @@ public class DirectionTest {
     @Test
     void testWest() {
         Direction north = Direction.valueOf("WEST");
-        assertThat(north.getDeltaX()).isEqualTo(-1);
+        assertThat(north.getDeltaX()).isEqualTo(0);
     }
 }
