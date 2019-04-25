@@ -19,4 +19,31 @@ public class DirectionTest {
         Direction north = Direction.valueOf("NORTH");
         assertThat(north.getDeltaY()).isEqualTo(-1);
     }
+
+    /**
+     * Do we get the correct delta when moving south?
+     */
+    @Test
+    void testSouth() {
+        Direction north = Direction.valueOf("SOUTH");
+        assertThat(north.getDeltaY()).isEqualTo(1);
+    }
+
+    /**
+     * Do we get the correct delta when moving east?
+     */
+    @Test
+    void testEast() {
+        Direction north = Direction.valueOf("EAST");
+        assertThat(north.getDeltaX()).isEqualTo(1);
+    }
+
+    /**
+     * Do we get the correct delta when moving west?
+     */
+    @Test
+    void testWest() {
+        Direction north = Direction.valueOf("WEST");
+        assertThat(north.getDeltaX()).isEqualTo(-1);
+    }
 }
