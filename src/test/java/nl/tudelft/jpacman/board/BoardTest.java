@@ -1,6 +1,8 @@
 package nl.tudelft.jpacman.board;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
+import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,4 +26,16 @@ public class BoardTest {
         assertThat( test.getHeight() ).isEqualTo( 1 );
 
     }
+
+//    @Test
+//    void NullSquareTest() {
+//
+//        Square[][] grid = new BasicSquare[1][0];
+//        Board board = new Board(grid);
+//        assertThat( board.squareAt( 1,0) ).isEqualTo( grid[1][0] );
+//
+//    }
+
+
+
 }
