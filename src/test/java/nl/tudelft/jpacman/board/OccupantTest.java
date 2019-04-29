@@ -2,7 +2,6 @@ package nl.tudelft.jpacman.board;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import nl.tudelft.jpacman.sprite.Sprite;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +31,7 @@ class OccupantTest {
      */
     @Test
     void noStartSquare() {
-        assertThat( unit.hasSquare() ).isFalse();
+        assertThat(unit.hasSquare()).isFalse();
     }
 
     /**
@@ -41,10 +40,9 @@ class OccupantTest {
      */
     @Test
     void testOccupy() {
-            Square targetTest = new BasicSquare();
-            unit.occupy( targetTest );
-            assertThat( unit.getSquare() ).isEqualTo( targetTest );
-            //assertThat( targetTest.getOccupants().contains( this ) ).isEqualTo( unit.invariant() );
+        Square targetTest = new BasicSquare();
+        unit.occupy(targetTest);
+        assertThat(unit.getSquare()).isEqualTo(targetTest);
     }
 
     /**
@@ -53,14 +51,13 @@ class OccupantTest {
      */
     @Test
     void testReoccupy() {
-            Square targetTest1 = new BasicSquare();
-            Square targetTest2 = new BasicSquare();
+        Square targetTest1 = new BasicSquare();
+        Square targetTest2 = new BasicSquare();
 
+        unit.occupy(targetTest1);
+        assertThat(unit.getSquare()).isEqualTo(targetTest1);
 
-            unit.occupy( targetTest1 );
-            assertThat( unit.getSquare()).isEqualTo( targetTest1 );
-
-            unit.occupy( targetTest2 );
-            assertThat( unit.getSquare()).isEqualTo( targetTest2 );
+        unit.occupy(targetTest2);
+        assertThat(unit.getSquare()).isEqualTo(targetTest2);
     }
 }

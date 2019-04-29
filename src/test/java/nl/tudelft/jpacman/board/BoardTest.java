@@ -11,8 +11,6 @@ import org.junit.jupiter.api.Test;
  */
 public class BoardTest {
 
-    private Square [][] board;
-
     /**
      * Tests that the board is valid.
      */
@@ -32,16 +30,5 @@ public class BoardTest {
         assertThat(test.getHeight()).isEqualTo(1);
 
     }
-
-//    @Test
-//    void NullSquareTest() {
-//
-//        Square[][] grid = new BasicSquare[1][0];
-//        Board board = new Board(grid);
-//        assertThat( board.squareAt( 1,0) ).isEqualTo( grid[1][0] );
-//
-//    }
-
-
 
 }
