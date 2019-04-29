@@ -31,16 +31,4 @@ public class BoardTest {
 
     }
 
-    /**
-     * Tests that the board is valid.
-     */
-    @Test
-    void nullSquareTest() {
-
-        Square[][] grid = null;
-        Board board = new Board(grid);
-
-        assertThat(board.squareAt(1, 1)).isEqualTo(grid[1][1]);
-
-    }
 }
