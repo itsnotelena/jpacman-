@@ -25,5 +25,6 @@ Exercice 10
 
 2- 
 
+
 3.a- LevelFactory, BoardFactory and GhostFactory are the classes that are required
 in the constructor. 
