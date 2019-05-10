@@ -73,22 +73,43 @@ domain matrix would be:
 
 ![Alt text](/doc/Domain_Matrix.PNG?raw=true)
 
-## 3.4 Understanding Testing 
-Exercise 14: Arrange is the first step of a unit test application. 
-To avoid code duplication we need to make test code as simple as possible. 
-We can also avoid using variables for expected values and create complex code in the tests.
-As we are doing the setup of the test, simple assertions should be used instead. 
+## Exercise 13
+The tests are implemented in the test.java.nl.tudelft.jpacman.board.BoardTest
+class.
 
-Exercise 15: 'clean instances' like in BoardFactoryTest helps to provide independence between test methods. 
-This way instance variable values are not being reused across test methods as each test method will
-run on a new test class instance.
+# 3.4 Understanding Testing
+ 
+## Exercise 14: 
+Arrange is the first step of a unit test application. 
+To avoid code duplication the test code should be as 
+simple as possible. We can also avoid using variables for 
+expected values and create complex code in the tests.
+As we are doing the setup of the test, simple assertions 
+should be used instead. 
 
-Exercise 16: For comparing primitive types, assertTrue() will check for a condition and assertEquals() will test the equality of the 
-expected value with the returning value. assertEquals() will provide a better error information when the test fails whereas assertTrue() can't. 
+## Exercise 15: 
+'clean instances' like in BoardFactoryTest helps to 
+provide independence between test methods. This way 
+instance variable values are not being reused across test 
+methods as each test method will run on a new test class 
+instance.
 
-Exercise 17: Generally speaking, we should not test private methods because we would test the implementation 
-rather than the functionality. But if testing the private method is necessary then we can use reflection 
-and using setAccessible(true). This way the private method can be called outside the class with 
-setAccessible(true). For MapParser Class, we need to test the private method neither tests them
- in isolation. The private methods are being used by the public methods like makeGrid() in parseMap() 
- so in this case, a solution is to test the public methods so it will hit all the private methods.
+## Exercise 16: 
+For comparing primitive types, assertTrue() will check 
+for a condition and assertEquals() will test the equality 
+of the expected value with the returning value. 
+assertEquals() will provide a better error information 
+when the test fails whereas assertTrue() can't. 
+
+## Exercise 17: 
+Generally speaking, we should not test private methods 
+because we would test the implementation rather than the 
+functionality. But if testing the private method is 
+necessary then we can use reflection and using 
+setAccessible(true). This way the private method can be 
+called outside the class with setAccessible(true). For 
+MapParser Class, we need to test the private method 
+neither tests them in isolation. The private methods are 
+being used by the public methods like makeGrid() in 
+parseMap() so in this case, a solution is to test the 
+public methods so it will hit all the private methods.
