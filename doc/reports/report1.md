@@ -24,22 +24,23 @@ Then in Board class, the board is created with and the units are placed in their
 between the components according to its level and determine the game's functionalities. Game class will 
 use the elements from Level class to be able to extend some basic functions like : start game, pause game etc... 
 
-#3.2 Unit Testing     
-##Exercise 10
-Using partitioning, 4 cases are present for the method 
-that needs to be tested:
 
-- Clyde is near PacMan, so it should go away from him.
+##3.4 Understanding Testing 
+Exercise 14: Arrange is the first step of a unit test application. 
+To avoid code duplication we need to make test code as simple as possible. 
+We can also avoid using variables for expected values and create complex code in the tests.
+As we are doing the setup of the test, simple assertions should be used instead. 
 
-- Clyde is far away from PacMan, so it should go towards
-him.
+Exercise 15: 'clean instances' like in BoardFactoryTest helps to provide independence between test methods. 
+This way instance variable values are not being reused across test methods as each test method will
+run on a new test class instance.
 
-- (Bad case scenario) PacMan isn't present on the board, 
-this shouldn't happen in real, but the application should 
-not throw an exception in a case like that and it needs
-to be assured.
+Exercise 16: For comparing primitive types, assertTrue() will check for a condition and assertEquals() will test the equality of the 
+expected value with the returning value. assertEquals() will provide a better error information when the test fails whereas assertTrue() can't. 
 
-- (Bad case scenario) There isn't a valid path between
-PacMan and Clyde, this also shouldn't happen in real, but
-assuring that the application works fine with that is
-important.
+Exercise 17: Generally speaking, we should not test private methods because we would test the implementation 
+rather than the functionality. But if testing the private method is necessary then we can use reflection 
+and using setAccessible(true). This way the private method can be called outside the class with 
+setAccessible(true). For MapParser Class, we need to test the private method neither tests them
+ in isolation. The private methods are being used by the public methods like makeGrid() in parseMap() 
+ so in this case, a solution is to test the public methods so it will hit all the private methods.
