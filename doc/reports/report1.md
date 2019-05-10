@@ -1,33 +1,33 @@
 Part I: Unit tests + Boundary Tests
 ===========================
 
-#3.1 Smoke Testing
-##Exercise 6 
+# 3.1 Smoke Testing
+## Exercise 6 
 CollisionInteractionMap and DefaultPlayerInteractionMap are the two classes that are not covered by the smoke test. 
 DefaultPlayerInteractionMap is never used in the application, so we cannot test it by
 running the program from end to end. CollisionInteractionMap is only used in the DefaultPlayerInteractionMap therefore it cannot be tested for the same reasons. 
 
-##Exercise 7
+## Exercise 7
 Method move is covered by the smoke test. When commenting out the last line in game. Game,
 as the move was not successful the points are not updated correctly. Thus, the test fails.
 
-##Exercise 8
+## Exercise 8
 This yields the same exception in the test from exercise 7. Therefore, not
 enough information about the bug is gained using a smoke test - the presence of the bug
 is detected, but its actual location - not. This means that starting with unit tests
 is essential to detect possible bugs, and after that testing the whole application is
 supposed to be done.
 
-##Exercise 9
+## Exercise 9
 In Unit class the components/players (Pac man and the monsters) with their properties are defined. 
 Then in Board class, the board is created and the units are placed in their respective square. Level class will make the interaction possible 
 between the components according to its level and determine the game's functionalities. Game class will 
 use the elements from Level class to be able to extend some basic functions like : start game, pause game etc... 
 
 
-#3.2 Unit testing
+# 3.2 Unit testing
 
-##Exercise 10
+## Exercise 10
 There are 4 partitions that could be made in order to test
 the Clyde.nextAiMove() method:
 
@@ -45,7 +45,7 @@ not stop working in this case).
 Tests are implemented in test.java.nl.tudelft.jpacman.npc.ghost.ClydeTest
 class.
 
-##Exercise 11
+## Exercise 11
 There are 5 partitions in this case:
 
 - When Blinky is not present on the board (since Inky uses
@@ -65,16 +65,15 @@ then Inky would go away from Pacman.
 Tests are implemented in test.java.nl.tudelft.jpacman.npc.ghost.InkyTest
 class.
 
-#3.3 Boundary Testing
+# 3.3 Boundary Testing
 
-##Exercise 12
+## Exercise 12
 For this test a (2x2)-board is used. This means that the
 domain matrix would be:
 
 ![Alt text](/doc/Domain_Matrix.PNG?raw=true)
-<img src="doc/Domain_Matrix.PNG" width="400">
 
-##3.4 Understanding Testing 
+## 3.4 Understanding Testing 
 Exercise 14: Arrange is the first step of a unit test application. 
 To avoid code duplication we need to make test code as simple as possible. 
 We can also avoid using variables for expected values and create complex code in the tests.
