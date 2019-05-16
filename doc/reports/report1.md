@@ -122,3 +122,8 @@ is better - unit tests are executed for only one function
 of the application and can spot bugs in exactly that part
 of the application. That is why unit tests for the "Clyde"
 and "Inky" classes were implemented.
+We did not have any issues with the CI since before
+committing we always first executed gradle check to see if
+we have any issues with the checkstyle or with the tests.
+We committed only when the build was successful, that is why
+our CI pipelines were always successful.
