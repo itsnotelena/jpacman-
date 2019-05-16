@@ -80,12 +80,10 @@ class.
 # 3.4 Understanding Testing
  
 ## Exercise 14: 
-Arrange is the first step of a unit test application. 
-To avoid code duplication the test code should be as 
-simple as possible. We can also avoid using variables for 
-expected values and create complex code in the tests.
-As we are doing the setup of the test, simple assertions 
-should be used instead. 
+Arrange is the first step of a unit test application. In
+this phase all the required objects are created, mocks
+(if needed) are set up and possibly the expected outputs
+are set.
 
 ## Exercise 15: 
 'clean instances' like in BoardFactoryTest helps to 
@@ -99,17 +97,28 @@ For comparing primitive types, assertTrue() will check
 for a condition and assertEquals() will test the equality 
 of the expected value with the returning value. 
 assertEquals() will provide a better error information 
-when the test fails whereas assertTrue() can't. 
+if the test fails (like "Expected X but was Y") whereas 
+assertTrue() would not.
 
 ## Exercise 17: 
-Generally speaking, we should not test private methods 
-because we would test the implementation rather than the 
-functionality. But if testing the private method is 
-necessary then we can use reflection and using 
-setAccessible(true). This way the private method can be 
-called outside the class with setAccessible(true). For 
-MapParser Class, we need to test the private method 
-neither tests them in isolation. The private methods are 
-being used by the public methods like makeGrid() in 
-parseMap() so in this case, a solution is to test the 
-public methods so it will hit all the private methods.
+Generally speaking, private methods should not be tested 
+because they are used only in public methods from the same
+class. This means that if the public methods are well
+tested, then the private methods work fine as well. If a
+private method needs to be tested in an isolated way, this
+means that the code is not cohesive. For MapParser Class, 
+we do not need to test the private method in isolation. 
+The private methods are being used by the public methods 
+like makeGrid() in parseMap() so in this case, a 
+solution is to test the public methods so it will hit 
+all the private methods.
+
+## Exercise 18:
+In this assignment, firstly a smoke test to check the whole
+functionality of the application was executed. After changing
+different parts of the code, though, this smoke test gave
+the same errors. That is why implementing unit tests first
+is better - unit tests are executed for only one function
+of the application and can spot bugs in exactly that part
+of the application. That is why unit tests for the "Clyde"
+and "Inky" classes were implemented.
