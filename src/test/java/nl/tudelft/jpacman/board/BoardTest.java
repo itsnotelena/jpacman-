@@ -42,14 +42,22 @@ public class BoardTest {
      */
     @ParameterizedTest
     @CsvSource({
-        "0 , 0, true",
-        "1, 0, false",
-        "-1, 0, false",
-        "0, 1, false",
-        "0, -1, false"})
+        "0 , 1, true",
+        "-1, 1, false",
+        "2, 1, false",
+        "1, 1, true",
+        "1, 0, true",
+        "1, -1, false",
+        "1, 2, false",
+        "1, 1, true"
+    })
     void testInRangeOfBoard(int length, int width, boolean expected) {
-        Square[][] squares = new BasicSquare[1][1];
-        squares[0][0] = new BasicSquare();
+        Square[][] squares = new BasicSquare[2][2];
+        for (int i = 0; i < squares.length; ++i) {
+            for (int j = 0; j < squares[i].length; ++j) {
+                squares[i][j] = new BasicSquare();
+            }
+        }
         Board board = new Board(squares);
 
         assertThat(board.withinBorders(length, width)).isEqualTo(expected);

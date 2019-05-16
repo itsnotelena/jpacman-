@@ -46,12 +46,13 @@ public class ClydeTest {
 
 
     /**
-     * Test in which Clyde is located near PacMan, so it will try to run away.
+     * Test in which Clyde is located near PacMan (on 8 squares distance),
+     * so it will try to run away.
      */
     @Test
     void testTooClose() {
         Level level = ghostMapParser.parseMap(
-            Lists.newArrayList("###", "###", "PC ")
+            Lists.newArrayList("############", "P       C###", "############")
         );
         Player player = playerFactory.createPacMan();
         player.setDirection(Direction.WEST);
@@ -63,12 +64,13 @@ public class ClydeTest {
 
 
     /**
-     * Test in which Clyde is far from PacMan, so it tries to go towards PacMan.
+     * Test in which Clyde is far from PacMan (on 9 squares distance),
+     * so it tries to go towards PacMan.
      */
     @Test
     void testTooFar() {
         Level level = ghostMapParser.parseMap(
-            Lists.newArrayList("############", "P         C#", "############")
+            Lists.newArrayList("############", "P        C##", "############")
         );
         Player player = playerFactory.createPacMan();
         player.setDirection(Direction.EAST);
