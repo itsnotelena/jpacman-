@@ -6,13 +6,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 /**
- * Class to verify that collisions between different units are handled correctly.
+ * Class to verify the collide method from the DefaultPlayerInteractionMap class.
  */
-public class PlayerCollisionsTest extends CollisionMapTest {
+public class DefaultPlayerInteractionMapTest extends CollisionMapTest {
 
     /**
-     * Initialize a player, a pellet and a ghost using for testing.
-     * Also, initialize a PlayerCollisions object.
+     * Initialize the parameters used for the test cases.
      */
     @BeforeEach
     void init() {
@@ -20,6 +19,6 @@ public class PlayerCollisionsTest extends CollisionMapTest {
         this.setPlayer(Mockito.mock(Player.class));
         this.setPellet(Mockito.mock(Pellet.class));
         this.setGhost(Mockito.mock(Ghost.class));
-        this.setPlayerCollisions(new PlayerCollisions(this.getPointCalculator()));
+        this.setPlayerCollisions(new DefaultPlayerInteractionMap(this.getPointCalculator()));
     }
 }
