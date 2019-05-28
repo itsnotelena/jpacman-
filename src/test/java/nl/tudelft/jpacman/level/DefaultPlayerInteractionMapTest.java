@@ -14,6 +14,7 @@ public class DefaultPlayerInteractionMapTest extends CollisionMapTest {
      * Initialize the parameters used for the test cases.
      */
     @BeforeEach
+    @Override
     void init() {
         this.setPointCalculator(Mockito.mock(PointCalculator.class));
         this.setPlayer(Mockito.mock(Player.class));

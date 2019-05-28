@@ -15,6 +15,7 @@ public class PlayerCollisionsTest extends CollisionMapTest {
      * Also, initialize a PlayerCollisions object.
      */
     @BeforeEach
+    @Override
     void init() {
         this.setPointCalculator(Mockito.mock(PointCalculator.class));
         this.setPlayer(Mockito.mock(Player.class));
