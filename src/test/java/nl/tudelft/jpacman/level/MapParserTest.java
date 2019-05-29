@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,30 +40,25 @@ public class MapParserTest {
         wall = Mockito.mock(Square.class);
         pellet = Mockito.mock(Pellet.class);
         ghost = Mockito.mock(Ghost.class);
+
         Mockito.when(boardFactory.createGround()).thenReturn(ground);
         Mockito.when(levelFactory.createPellet()).thenReturn(pellet);
         Mockito.when(boardFactory.createWall()).thenReturn(wall);
         Mockito.when(levelFactory.createGhost()).thenReturn(ghost);
-        //Mockito.when()
+
         mapParser = new MapParser(levelFactory, boardFactory);
     }
 
 
     /**
-     * Verifying the methods are called the right amount of times. (Good weather case).
-     * Suppressed the MagicNumber warning - we need to check how many
-     * times a method is called.
+     * Test a good weather case and verify the method calls other methods the right amount of times.
+     * @throws IOException when the resource could not be read
+     * @throws PacmanConfigurationException when the file is not found
      */
-    @SuppressWarnings("MagicNumber")
     @Test
-    void testParseMapCharsTest() {
-        List<String> map = Arrays.asList(
-            "########",
-            "#G . P G",
-            "########"
-        );
-
-        mapParser.parseMap(map);
+    @SuppressWarnings("MagicNumber")
+    void testParseMapGoodWeatherTest() throws IOException, PacmanConfigurationException {
+        mapParser.parseMap("/simplemap.txt");
         List<Square> expStart = Arrays.asList(ground);
 
         Mockito.verify(boardFactory, Mockito.times(7)).createGround();
@@ -81,6 +77,18 @@ public class MapParserTest {
         Mockito.verifyNoMoreInteractions(boardFactory);
         Mockito.verifyNoMoreInteractions(levelFactory);
     }
+
+
+    /**
+     * Bad weather case when the map is not present in the package.
+     */
+    @Test
+    void testNoSuchFile() {
+        assertThrows(PacmanConfigurationException.class, () ->
+            mapParser.parseMap("/random.txt")
+        );
+    }
+
 
 
     /**
