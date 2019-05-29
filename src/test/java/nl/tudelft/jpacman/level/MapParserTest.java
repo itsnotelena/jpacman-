@@ -56,19 +56,26 @@ public class MapParserTest {
      * @throws PacmanConfigurationException when the file is not found
      */
     @Test
-    @SuppressWarnings("MagicNumber")
     void testParseMapGoodWeatherTest() throws IOException, PacmanConfigurationException {
         mapParser.parseMap("/simplemap.txt");
         List<Square> expStart = Arrays.asList(ground);
 
-        Mockito.verify(boardFactory, Mockito.times(7)).createGround();
-        Mockito.verify(boardFactory, Mockito.times(17)).createWall();
-        Mockito.verify(levelFactory, Mockito.times(1)).createPellet();
-        Mockito.verify(levelFactory, Mockito.times(2)).createGhost();
-        Mockito.verify(pellet, Mockito.times(1)).occupy(ground);
+        final int timesCreateGround = 7;
+        final int timesCreateWall = 17;
+        final int timesCreatePellet = 1;
+        final int timesCreateGhost = 2;
+        final int timesOccupy = 1;
+        final int timesCreateBoard = 1;
+        final int timesCreateLevel = 1;
 
-        Mockito.verify(boardFactory, Mockito.times(1)).createBoard(Mockito.any());
-        Mockito.verify(levelFactory, Mockito.times(1)).createLevel(
+        Mockito.verify(boardFactory, Mockito.times(timesCreateGround)).createGround();
+        Mockito.verify(boardFactory, Mockito.times(timesCreateWall)).createWall();
+        Mockito.verify(levelFactory, Mockito.times(timesCreatePellet)).createPellet();
+        Mockito.verify(levelFactory, Mockito.times(timesCreateGhost)).createGhost();
+        Mockito.verify(pellet, Mockito.times(timesOccupy)).occupy(ground);
+
+        Mockito.verify(boardFactory, Mockito.times(timesCreateBoard)).createBoard(Mockito.any());
+        Mockito.verify(levelFactory, Mockito.times(timesCreateLevel)).createLevel(
             Mockito.any(),
             Mockito.any(),
             Mockito.eq(expStart)
