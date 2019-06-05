@@ -10,7 +10,6 @@ import org.mockito.Mockito;
  * Tests for classes that implement the CollisionMap class.
  */
 public abstract class CollisionMapTest {
-    //@SuppressWarnings()
     private PointCalculator pointCalculator;
     private Player player;
     private Pellet pellet;
