@@ -27,7 +27,7 @@ import java.util.Random;
  */
 @Disabled
 class JPacmanFuzzer {
-    private static final int RUNS = 5;
+    private static final int RUNS = 10;
     private static final String LOG_HEADER =
         "isAlive, hasCollided, currentDirection, nextDirection, remainingPellets, score";
     private static final String BASE_LOG_DIRECTORY = "behavioral-analysis/logs";

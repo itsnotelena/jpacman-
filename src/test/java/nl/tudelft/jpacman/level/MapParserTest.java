@@ -51,7 +51,8 @@ public class MapParserTest {
 
 
     /**
-     * Test a good weather case and verify the method calls other methods the right amount of times.
+     * Test a good weather case with a simple map
+     * and verify the method calls other methods the right amount of times.
      * @throws IOException when the resource could not be read
      * @throws PacmanConfigurationException when the file is not found
      */
@@ -79,6 +80,119 @@ public class MapParserTest {
             Mockito.any(),
             Mockito.any(),
             Mockito.eq(expStart)
+        );
+
+        Mockito.verifyNoMoreInteractions(boardFactory);
+        Mockito.verifyNoMoreInteractions(levelFactory);
+    }
+
+
+    /**
+     * Test only with players and spaces.
+     * @throws IOException when the resource could not be read
+     * @throws PacmanConfigurationException when the file is not found
+     */
+    @Test
+    void testSpaces() throws IOException, PacmanConfigurationException {
+        mapParser.parseMap("/testSpaces.txt");
+        List<Square> starts = Arrays.asList(ground, ground, ground);
+
+        final int timesCreateGround = 9;
+
+        Mockito.verify(boardFactory, Mockito.times(timesCreateGround)).createGround();
+
+        Mockito.verify(boardFactory, Mockito.times(1)).createBoard(Mockito.any());
+        Mockito.verify(levelFactory, Mockito.times(1)).createLevel(
+            Mockito.any(),
+            Mockito.any(),
+            Mockito.eq(starts)
+        );
+
+        Mockito.verifyNoMoreInteractions(boardFactory);
+        Mockito.verifyNoMoreInteractions(levelFactory);
+    }
+
+
+    /**
+     * Test only with a player and walls.
+     * @throws IOException when the resource could not be read
+     * @throws PacmanConfigurationException when the file could not be found
+     */
+    @Test
+    void testWalls() throws IOException, PacmanConfigurationException {
+        mapParser.parseMap("/testWalls.txt");
+        List<Square> starts = Arrays.asList(ground);
+
+        final int timesCreateWall = 8;
+
+        Mockito.verify(boardFactory, Mockito.times(timesCreateWall)).createWall();
+        Mockito.verify(boardFactory, Mockito.times(1)).createGround();
+
+        Mockito.verify(boardFactory, Mockito.times(1)).createBoard(Mockito.any());
+        Mockito.verify(levelFactory, Mockito.times(1)).createLevel(
+            Mockito.any(),
+            Mockito.any(),
+            Mockito.eq(starts)
+        );
+
+        Mockito.verifyNoMoreInteractions(boardFactory);
+        Mockito.verifyNoMoreInteractions(levelFactory);
+    }
+
+
+    /**
+     * Test only with a player and dots.
+     * @throws IOException when the resource cannot be read
+     * @throws PacmanConfigurationException when the file is not found
+     */
+    @Test
+    void testDots() throws IOException, PacmanConfigurationException {
+        mapParser.parseMap("/testDots.txt");
+        List<Square> starts = Arrays.asList(ground);
+
+        final int timesCreateGround = 9;
+        final int timesCreatePellet = 8;
+        final int timesOccupy = 8;
+
+        Mockito.verify(boardFactory, Mockito.times(timesCreateGround)).createGround();
+        Mockito.verify(levelFactory, Mockito.times(timesCreatePellet)).createPellet();
+        Mockito.verify(pellet, Mockito.times(timesOccupy)).occupy(ground);
+
+        Mockito.verify(boardFactory, Mockito.times(1)).createBoard(Mockito.any());
+        Mockito.verify(levelFactory, Mockito.times(1)).createLevel(
+            Mockito.any(),
+            Mockito.any(),
+            Mockito.eq(starts)
+        );
+
+        Mockito.verifyNoMoreInteractions(boardFactory);
+        Mockito.verifyNoMoreInteractions(levelFactory);
+    }
+
+
+    /**
+     * Test only with ghosts and players.
+     * @throws IOException when the resource could not be read
+     * @throws PacmanConfigurationException when the file is not found
+     */
+    @Test
+    void testGhostsPlayers() throws IOException, PacmanConfigurationException {
+        mapParser.parseMap("/testGhostsPlayers.txt");
+        List<Square> starts = Arrays.asList(ground, ground);
+
+        final int timesCreateGhost = 2;
+        final int timesOccupy = 2;
+        final int timesCreateGround = 4;
+
+        Mockito.verify(boardFactory, Mockito.times(timesCreateGround)).createGround();
+        Mockito.verify(levelFactory, Mockito.times(timesCreateGhost)).createGhost();
+        Mockito.verify(ghost, Mockito.times(timesOccupy)).occupy(ground);
+
+        Mockito.verify(boardFactory, Mockito.times(1)).createBoard(Mockito.any());
+        Mockito.verify(levelFactory, Mockito.times(1)).createLevel(
+            Mockito.any(),
+            Mockito.any(),
+            Mockito.eq(starts)
         );
 
         Mockito.verifyNoMoreInteractions(boardFactory);
