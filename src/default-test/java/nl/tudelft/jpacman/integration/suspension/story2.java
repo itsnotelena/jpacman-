@@ -5,6 +5,7 @@ import nl.tudelft.jpacman.board.*;
 import nl.tudelft.jpacman.level.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sun.launcher.resources.launcher;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -59,7 +60,21 @@ public class story2 {
     }
 
 
+    @Test
+    void playerCantMove() throws IOException {
+        launcher.withMapFile("/map_scenario2-3.txt");
+        launcher.launch();
+        launcher.getGame().start();
+
+        Player player = launcher.getGame().getPlayers().get(0);
+        Square beginning = player.getSquare();
+
+        assertThat(player.getSquare()).isEqualTo(beginning);
+
+        launcher.getGame().move(player,Direction.EAST);
+        assertThat(player.getSquare()).isEqualTo(beginning);
+    }
+
 }
 
-    
 
