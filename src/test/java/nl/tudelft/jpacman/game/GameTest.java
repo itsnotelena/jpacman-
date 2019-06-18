@@ -172,4 +172,174 @@ public class GameTest {
 
         game.stop();
     }
+
+
+    /**
+     * Test when game is not started and you want to move towards a wall.
+     */
+    @Test
+    void testNotStartedMoveWall() {
+        Launcher launcher = new Launcher().withMapFile("/moveWall.txt");
+        launcher.launch();
+
+        Game game = launcher.getGame();
+        Player player = game.getPlayers().get(0);
+        Square square = player.getSquare();
+
+        assertThat(game.isInProgress()).isFalse();
+
+        game.move(player, Direction.NORTH);
+        assertThat(player.getSquare()).isEqualTo(square);
+
+        assertThat(game.isInProgress()).isFalse();
+    }
+
+
+    /**
+     * Test when game is not started and you want to move to an empty square.
+     */
+    @Test
+    void testNotStartedMoveEmpty() {
+        Launcher launcher = new Launcher().withMapFile("/moveEmpty.txt");
+        launcher.launch();
+
+        Game game = launcher.getGame();
+        Player player = game.getPlayers().get(0);
+
+        assertThat(game.isInProgress()).isFalse();
+
+        game.move(player, Direction.EAST);
+        assertThat(game.isInProgress()).isFalse();
+    }
+
+
+    /**
+     * Test when the game is not started and you want to move towards a pellet.
+     */
+    @Test
+    void testNotStartedMovePellet() {
+        Level.LevelObserver levelObserver = Mockito.mock(Level.LevelObserver.class);
+        Launcher launcher = new Launcher().withMapFile("/mapTest.txt");
+        launcher.launch();
+
+        Game game = launcher.getGame();
+        game.getLevel().addObserver(levelObserver);
+        Player player = game.getPlayers().get(0);
+
+        assertThat(game.isInProgress()).isFalse();
+
+        game.move(player, Direction.EAST);
+
+        assertThat(game.isInProgress()).isFalse();
+        assertThat(player.getScore()).isEqualTo(0);
+    }
+
+
+    /**
+     * Test when the game is stopped and you want to move towards a wall.
+     */
+    @Test
+    void testSuspendMoveWall() {
+        Launcher launcher = new Launcher().withMapFile("/moveWall.txt");
+        launcher.launch();
+
+        Game game = launcher.getGame();
+        Player player = game.getPlayers().get(0);
+
+        game.start();
+        assertThat(game.isInProgress()).isTrue();
+
+        game.stop();
+        assertThat(game.isInProgress()).isFalse();
+
+        game.move(player, Direction.NORTH);
+
+        assertThat(game.isInProgress()).isFalse();
+    }
+
+
+    /**
+     * Test when the game is stopped and you want to move to an empty box.
+     */
+    @Test
+    void testSuspendMoveEmpty() {
+        Launcher launcher = new Launcher().withMapFile("/moveEmpty.txt");
+        launcher.launch();
+
+        Game game = launcher.getGame();
+        Player player = game.getPlayers().get(0);
+        Square square = player.getSquare();
+
+        game.start();
+        assertThat(game.isInProgress()).isTrue();
+
+        game.stop();
+        assertThat(game.isInProgress()).isFalse();
+
+        game.move(player, Direction.EAST);
+        assertThat(player.getSquare()).isEqualTo(square);
+
+        assertThat(game.isInProgress()).isFalse();
+    }
+
+
+    /**
+     * Test when the game is started and you press start again.
+     */
+    @Test
+    void testInGameStart() {
+        Launcher launcher = new Launcher().withMapFile("/mapTest.txt");
+        launcher.launch();
+
+        Game game = launcher.getGame();
+        game.start();
+        assertThat(game.isInProgress()).isTrue();
+
+        game.start();
+        assertThat(game.isInProgress()).isTrue();
+    }
+
+
+    /**
+     * Test when the game is won and you try to start it again.
+     */
+    @Test
+    void testWinStart() {
+        Level.LevelObserver levelObserver = Mockito.mock(Level.LevelObserver.class);
+        Launcher launcher = new Launcher().withMapFile("/mapLose.txt");
+        launcher.launch();
+
+        Game game = launcher.getGame();
+        game.getLevel().addObserver(levelObserver);
+        game.start();
+        Player player = game.getPlayers().get(0);
+
+        game.move(player, Direction.EAST);
+        Mockito.verify(levelObserver, Mockito.times(1)).levelWon();
+
+        game.start();
+        assertThat(game.isInProgress()).isFalse();
+    }
+
+
+    /**
+     * Test when the game is lost and you try to start it again.
+     */
+    @Test
+    void testLoseStart() {
+        Level.LevelObserver levelObserver = Mockito.mock(Level.LevelObserver.class);
+        Launcher launcher = new Launcher().withMapFile("/mapLose.txt");
+        launcher.launch();
+
+        Game game = launcher.getGame();
+        game.getLevel().addObserver(levelObserver);
+        game.start();
+        Player player = game.getPlayers().get(0);
+
+        game.move(player, Direction.SOUTH);
+        Mockito.verify(levelObserver, Mockito.times(1)).levelLost();
+
+        game.start();
+        assertThat(game.isInProgress()).isFalse();
+    }
 }
