@@ -1,24 +1,23 @@
 package nl.tudelft.jpacman.integration.suspension;
 
 import nl.tudelft.jpacman.Launcher;
-import nl.tudelft.jpacman.game.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.Test;
-
-public class story4 {
+/**
+ * Testing scenario 4.
+ */
+public class UserStory4 {
 
     private Launcher launcher;
-    private Game game;
 
     /**
-     * Initialize Launcher()
+     * Initialize Launcher().
      * */
     @BeforeEach
-    void setup(){
+    void setup() {
         launcher = new Launcher();
     }
 
@@ -26,7 +25,7 @@ public class story4 {
      * Testing when the player stops the game.
      */
     @Test
-    void resumeGame(){
+    void resumeGame() {
         launcher.launch();
         launcher.getGame().start();
         launcher.getGame().stop();
@@ -37,7 +36,7 @@ public class story4 {
      * Testing when the player starts the game, resume and starts again.
      */
     @Test
-    void startGame(){
+    void startGame() {
         launcher.launch();
 
         launcher.getGame().start();
