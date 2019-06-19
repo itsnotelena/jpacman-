@@ -12,43 +12,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * Class for testing the different paths in the transition tree.
+ * Class for testing the different paths in a single level game.
  */
 public class GameTest {
 
+    private Launcher launcher;
+
     /**
-     * Test for consuming one of the pellets(not the last one).
+     * Launch the game played.
+     *
+     * @param mapName the name of the map file
      */
-    @Test
-    void testConsumePellet() {
-        Launcher launcher = new Launcher().withMapFile("/mapTest.txt");
-
-        launcher.launch();
-        final int score = 20;
-
-        Game game = launcher.getGame();
-        assertThat(game.isInProgress()).isFalse();
-
-        game.start();
-        Player myPlayer = game.getPlayers().get(0);
-
-        game.move(myPlayer, Direction.EAST);
-        game.move(myPlayer, Direction.SOUTH);
-
-        assertThat(myPlayer.getScore()).isEqualTo(score);
-        assertThat(game.isInProgress()).isTrue();
-
-        game.stop();
+    public void init(String[] mapName) {
+        launcher = new Launcher().withMapFile(mapName[0]);
     }
 
+    /**
+     * Set a new launcher.
+     * @param launcher the launcher to be set
+     */
+    public void setLauncher(Launcher launcher) {
+        this.launcher = launcher;
+    }
 
     /**
      * Test for consuming all of the pellets and thus winning the game.
      */
     @Test
     void testWin() {
+        String[] map = {"/mapTest.txt"};
+        init(map);
         Level.LevelObserver levelObserver = Mockito.mock(Level.LevelObserver.class);
-        Launcher launcher = new Launcher().withMapFile("/mapTest.txt");
+        //launcher = new Launcher().withMapFile("/mapTest.txt");
 
         launcher.launch();
         Game game = launcher.getGame();
@@ -75,12 +70,41 @@ public class GameTest {
 
 
     /**
+     * Test for consuming one of the pellets(not the last one).
+     */
+    @Test
+    void testConsumePellet() {
+        String[] map = {"/mapTest.txt"};
+        init(map);
+        //launcher = new Launcher().withMapFile("/mapTest.txt");
+
+        launcher.launch();
+        final int score = 20;
+
+        Game game = launcher.getGame();
+        assertThat(game.isInProgress()).isFalse();
+
+        game.start();
+        Player myPlayer = game.getPlayers().get(0);
+
+        game.move(myPlayer, Direction.EAST);
+        game.move(myPlayer, Direction.SOUTH);
+
+        assertThat(myPlayer.getScore()).isEqualTo(score);
+        assertThat(game.isInProgress()).isTrue();
+
+        game.stop();
+    }
+
+    /**
      * Test for collision with a ghost and thus losing the game.
      */
     @Test
     void testLose() {
+        String[] map = {"/mapLose.txt"};
+        init(map);
         Level.LevelObserver levelObserver = Mockito.mock(Level.LevelObserver.class);
-        Launcher launcher = new Launcher().withMapFile("/mapLose.txt");
+        //launcher = new Launcher().withMapFile("/mapLose.txt");
 
         launcher.launch();
         Game game = launcher.getGame();
@@ -99,13 +123,14 @@ public class GameTest {
         game.stop();
     }
 
-
     /**
      * Test for moving to an empty cell and thus not changing the state of the game.
      */
     @Test
     void testMoveEmpty() {
-        Launcher launcher = new Launcher().withMapFile("/moveEmpty.txt");
+        String[] map = {"/moveEmpty.txt"};
+        init(map);
+        //launcher = new Launcher().withMapFile("/moveEmpty.txt");
 
         launcher.launch();
         Game game = launcher.getGame();
@@ -123,13 +148,14 @@ public class GameTest {
         game.stop();
     }
 
-
     /**
      * Test for moving towards a wall and thus staying in the same square.
      */
     @Test
     void testMoveWall() {
-        Launcher launcher = new Launcher().withMapFile("/moveWall.txt");
+        String[] map = {"/moveWall.txt"};
+        init(map);
+        //launcher = new Launcher().withMapFile("/moveWall.txt");
 
         launcher.launch();
         Game game = launcher.getGame();
@@ -149,13 +175,14 @@ public class GameTest {
         game.stop();
     }
 
-
     /**
      * Test for stopping and resuming the game.
      */
     @Test
     void testStopStart() {
-        Launcher launcher = new Launcher().withMapFile("/sampleMap.txt");
+        String[] map = {"/sampleMap.txt"};
+        init(map);
+        //launcher = new Launcher().withMapFile("/sampleMap.txt");
 
         launcher.launch();
         Game game = launcher.getGame();
@@ -173,13 +200,14 @@ public class GameTest {
         game.stop();
     }
 
-
     /**
      * Test when game is not started and you want to move towards a wall.
      */
     @Test
     void testNotStartedMoveWall() {
-        Launcher launcher = new Launcher().withMapFile("/moveWall.txt");
+        String[] map = {"/moveWall.txt"};
+        init(map);
+        //launcher = new Launcher().withMapFile("/moveWall.txt");
         launcher.launch();
 
         Game game = launcher.getGame();
@@ -200,7 +228,9 @@ public class GameTest {
      */
     @Test
     void testNotStartedMoveEmpty() {
-        Launcher launcher = new Launcher().withMapFile("/moveEmpty.txt");
+        String[] map = {"/moveEmpty.txt"};
+        init(map);
+        //launcher = new Launcher().withMapFile("/moveEmpty.txt");
         launcher.launch();
 
         Game game = launcher.getGame();
@@ -218,8 +248,10 @@ public class GameTest {
      */
     @Test
     void testNotStartedMovePellet() {
+        String[] map = {"/mapTest.txt"};
+        init(map);
         Level.LevelObserver levelObserver = Mockito.mock(Level.LevelObserver.class);
-        Launcher launcher = new Launcher().withMapFile("/mapTest.txt");
+        //launcher = new Launcher().withMapFile("/mapTest.txt");
         launcher.launch();
 
         Game game = launcher.getGame();
@@ -240,7 +272,9 @@ public class GameTest {
      */
     @Test
     void testSuspendMoveWall() {
-        Launcher launcher = new Launcher().withMapFile("/moveWall.txt");
+        String[] map = {"/moveWall.txt"};
+        init(map);
+        //launcher = new Launcher().withMapFile("/moveWall.txt");
         launcher.launch();
 
         Game game = launcher.getGame();
@@ -263,7 +297,9 @@ public class GameTest {
      */
     @Test
     void testSuspendMoveEmpty() {
-        Launcher launcher = new Launcher().withMapFile("/moveEmpty.txt");
+        String[] map = {"/moveEmpty.txt"};
+        init(map);
+        //launcher = new Launcher().withMapFile("/moveEmpty.txt");
         launcher.launch();
 
         Game game = launcher.getGame();
@@ -288,7 +324,9 @@ public class GameTest {
      */
     @Test
     void testInGameStart() {
-        Launcher launcher = new Launcher().withMapFile("/mapTest.txt");
+        String[] map = {"/mapTest.txt"};
+        init(map);
+        //launcher = new Launcher().withMapFile("/mapTest.txt");
         launcher.launch();
 
         Game game = launcher.getGame();
@@ -299,14 +337,15 @@ public class GameTest {
         assertThat(game.isInProgress()).isTrue();
     }
 
-
     /**
      * Test when the game is won and you try to start it again.
      */
     @Test
     void testWinStart() {
+        String[] map = {"/mapLose.txt"};
+        init(map);
         Level.LevelObserver levelObserver = Mockito.mock(Level.LevelObserver.class);
-        Launcher launcher = new Launcher().withMapFile("/mapLose.txt");
+        //launcher = new Launcher().withMapFile("/mapLose.txt");
         launcher.launch();
 
         Game game = launcher.getGame();
@@ -327,8 +366,10 @@ public class GameTest {
      */
     @Test
     void testLoseStart() {
+        String[] map = {"/mapLose.txt"};
+        init(map);
         Level.LevelObserver levelObserver = Mockito.mock(Level.LevelObserver.class);
-        Launcher launcher = new Launcher().withMapFile("/mapLose.txt");
+        //launcher = new Launcher().withMapFile("/mapLose.txt");
         launcher.launch();
 
         Game game = launcher.getGame();
