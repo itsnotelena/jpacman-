@@ -29,6 +29,7 @@ public class GameTest {
 
     /**
      * Set a new launcher.
+     *
      * @param launcher the launcher to be set
      */
     public void setLauncher(Launcher launcher) {
@@ -36,7 +37,16 @@ public class GameTest {
     }
 
     /**
-     * Test for consuming all of the pellets and thus winning the game.
+     * Return the launcher for the test.
+     *
+     * @return the launcher of the test
+     */
+    public Launcher getLauncher() {
+        return launcher;
+    }
+
+    /**
+     * Test for consuming all of the pellets from all levels and thus winning the game.
      */
     @Test
     void testWin() {

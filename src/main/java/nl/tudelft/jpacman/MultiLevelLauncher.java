@@ -2,7 +2,7 @@ package nl.tudelft.jpacman;
 
 import nl.tudelft.jpacman.game.GameFactory;
 import nl.tudelft.jpacman.game.MultiLevelGame;
-import nl.tudelft.jpacman.level.*;
+import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.points.PointCalculatorLoader;
 
 import java.io.IOException;
@@ -66,7 +66,7 @@ public class MultiLevelLauncher extends Launcher {
      * @return a new multilevel launcher
      */
     public MultiLevelLauncher withMapFiles(String[] maps) {
-        this.maps = maps;
+        this.maps = maps.clone();
         return this;
     }
 }

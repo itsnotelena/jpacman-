@@ -7,6 +7,9 @@ import nl.tudelft.jpacman.points.PointCalculator;
 
 import java.util.List;
 
+/**
+ * Class that implements functionality for a game with multiple levels.
+ */
 public class MultiLevelGame extends Game {
 
     /**
@@ -38,7 +41,7 @@ public class MultiLevelGame extends Game {
         assert levels != null;
 
         this.player = player;
-        this.levels = levels;
+        this.levels = levels.clone();
         this.level = 0;
 
         this.levels[level].registerPlayer(player);
@@ -56,9 +59,11 @@ public class MultiLevelGame extends Game {
 
     @Override
     public void levelWon() {
-        if (level < 3) {
+        final int nbrLevels = 3;
+        if (level < nbrLevels) {
             level++;
             levels[level].registerPlayer(player);
+            stop();
         } else {
             stop();
         }
